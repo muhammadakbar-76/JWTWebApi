@@ -16,10 +16,35 @@ namespace JWTWebApi.Controllers
         private static User user = new();
 
         private readonly IConfiguration _configuration;
-        public AuthController(IConfiguration configuration)
+
+        private readonly IUserService _userService;
+
+        public AuthController(IConfiguration configuration, IUserService userService)
         {
             _configuration = configuration;
+            _userService = userService;
+
         }
+
+        //this is not best practice
+        //[HttpGet, Authorize]
+        //public ActionResult<object> GetMe()
+        //{
+        //    string username = User?.Identity?.Name;
+        //    var username2 = User.FindFirstValue(ClaimTypes.Name);
+        //    var role = User.FindFirstValue(ClaimTypes.Role);
+        //    return Ok(new {username, username2, role});
+        //}
+
+        [HttpGet, Authorize]
+        public ActionResult<object> GetMe()
+        {
+            var result = _userService.GetMyName();
+            return Ok(result);
+        }
+
+
+
 
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDTO req)

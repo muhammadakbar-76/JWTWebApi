@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JWTWebApi.Controllers
